@@ -1,0 +1,164 @@
+/* Name Card Styles */
+.name-card {
+  position: absolute;
+  width: 200px;
+  min-height: 100px;
+  padding: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Explosion animation */
+.name-card.exploding {
+  will-change: transform, opacity;
+  animation: explodeOut 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--explosion-delay, 0ms);
+}
+
+@keyframes explodeOut {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      translate(var(--offset-x, 0), var(--offset-y, 0))
+      scale(0)
+      rotate(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      translate(0, 0)
+      scale(var(--final-scale, 1))
+      rotate(var(--final-rotation, 0deg));
+  }
+}
+
+.name-card:hover {
+  transform: translate(-50%, -50%) scale(1.1) rotate(0deg) !important;
+  z-index: 100 !important;
+  box-shadow: var(--shadow-lg);
+  border-color: var(--category-color, var(--accent));
+}
+
+.name-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  width: fit-content;
+}
+
+.name-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.name-meaning {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Favorite button */
+.favorite-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.name-card:hover .favorite-button {
+  opacity: 1;
+}
+
+.favorite-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ef4444;
+}
+
+.favorite-button.active {
+  opacity: 1;
+  color: #ef4444;
+}
+
+.favorite-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Go Deeper hint */
+.go-deeper-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: var(--accent);
+  border-radius: 12px;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+}
+
+.name-card:hover .go-deeper-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.go-deeper-hint svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Dark mode */
+.app.dark-mode .name-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+.app.dark-mode .favorite-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

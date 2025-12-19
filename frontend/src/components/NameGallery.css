@@ -1,0 +1,201 @@
+/* Name Gallery Styles */
+.name-gallery {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-primary);
+}
+
+.gallery-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+  transition: transform 0.05s linear;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Result Badge */
+.result-badge-container {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 20;
+}
+
+.result-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px 10px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.result-badge:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: var(--shadow-md);
+}
+
+.badge-chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.result-badge-container:has(.slider-popup) .badge-chevron {
+  transform: rotate(180deg);
+}
+
+/* Slider Popup */
+.slider-popup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 280px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.slider-value {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.name-count-slider {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.name-count-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+  transition: transform 0.15s ease;
+}
+
+.name-count-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.zoom-controls button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.zoom-controls button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.zoom-controls span {
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Dark Mode */
+.app.dark-mode .result-badge {
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.app.dark-mode .slider-popup {
+  background: rgba(26, 26, 26, 0.95);
+}
+
+.app.dark-mode .zoom-controls {
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.app.dark-mode .zoom-controls button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

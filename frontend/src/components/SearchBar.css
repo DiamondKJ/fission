@@ -1,0 +1,171 @@
+/* Fission Search Bar */
+.search-bar {
+  flex: 1;
+  max-width: 560px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar.centered {
+  max-width: 100%;
+}
+
+.search-bar form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.search-bar.centered form {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 100px 12px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-light);
+}
+
+/* Centered mode */
+.search-bar.centered .search-input {
+  padding: 18px 110px 18px 24px;
+  font-size: 18px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.search-bar.centered .search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-bar.centered .search-input:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--accent);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 3px var(--accent-light);
+}
+
+.search-bar.centered .search-actions {
+  right: 8px;
+  gap: 6px;
+}
+
+.search-bar.centered .search-button,
+.search-bar.centered .deep-mode-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+}
+
+/* Search actions container */
+.search-actions {
+  position: absolute;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Deep mode button */
+.deep-mode-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.deep-mode-button:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+}
+
+.deep-mode-button.active {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.deep-mode-button.active:hover {
+  background: var(--accent-light);
+}
+
+.deep-mode-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Search button */
+.search-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.search-button:hover {
+  background: var(--accent-hover);
+  transform: scale(1.02);
+}
+
+.search-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Dark Mode */
+.app.dark-mode .deep-mode-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .search-bar.centered .search-input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .search-bar.centered .search-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+}
