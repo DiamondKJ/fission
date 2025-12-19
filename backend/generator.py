@@ -10,6 +10,7 @@ from anthropic import Anthropic
 from dotenv import load_dotenv
 
 from prompts import SYSTEM_PROMPT, GENERATE_PROMPT, GO_DEEPER_PROMPT
+from cache import response_cache
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -55,6 +56,18 @@ class NameGenerator:
         Returns:
             Dict with names and threads
         """
+        # Check cache first
+        cache_key = {
+            "type": "generate",
+            "prompt": prompt.lower().strip(),
+            "num_results": num_results,
+            "style": style
+        }
+        cached = response_cache.get(cache_key)
+        if cached:
+            logger.info(f"Returning cached result for: {prompt}")
+            return cached
+
         if not self.client:
             return self._generate_fallback(prompt, num_results)
 
@@ -78,6 +91,8 @@ class NameGenerator:
             result = self._parse_json_response(content)
 
             if result:
+                # Cache the result
+                response_cache.set(cache_key, result, ttl=7200)  # 2 hours
                 return result
             else:
                 logger.error("Failed to parse Claude response")
@@ -104,6 +119,17 @@ class NameGenerator:
         Returns:
             Dict with threads of related names
         """
+        # Check cache first
+        cache_key = {
+            "type": "deeper",
+            "name": name.lower().strip(),
+            "context": context.lower().strip() if context else ""
+        }
+        cached = response_cache.get(cache_key)
+        if cached:
+            logger.info(f"Returning cached Go Deeper result for: {name}")
+            return cached
+
         if not self.client:
             return self._deeper_fallback(name)
 
@@ -126,6 +152,8 @@ class NameGenerator:
             result = self._parse_json_response(content)
 
             if result:
+                # Cache the result
+                response_cache.set(cache_key, result, ttl=7200)  # 2 hours
                 return result
             else:
                 logger.error("Failed to parse Claude Go Deeper response")

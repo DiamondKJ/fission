@@ -21,12 +21,12 @@ function GoDeeperPanel() {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  // Fetch deeper results when selected name changes
+  // Fetch deeper results when selected name changes or deeperResults is cleared
   useEffect(() => {
     if (selectedName && !deeperResults) {
       fetchDeeperResults()
     }
-  }, [selectedName])
+  }, [selectedName, deeperResults])
 
   const fetchDeeperResults = async () => {
     if (!selectedName) return

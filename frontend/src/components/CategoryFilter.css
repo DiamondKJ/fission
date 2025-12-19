@@ -1,0 +1,121 @@
+/* Category Filter Styles */
+.category-filter {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-sm);
+  max-width: 400px;
+  animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.clear-filters {
+  font-size: 12px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.clear-filters:hover {
+  text-decoration: underline;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--chip-bg, transparent);
+  border: 1px solid var(--chip-color);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+  background: color-mix(in srgb, var(--chip-color) 15%, transparent);
+}
+
+.filter-chip.active {
+  color: white;
+}
+
+.filter-chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.filter-chip.active .chip-dot {
+  background: white !important;
+}
+
+.chip-name {
+  font-size: 13px;
+}
+
+.chip-count {
+  font-size: 11px;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  color: var(--text-secondary);
+}
+
+/* Dark Mode */
+.app.dark-mode .category-filter {
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.app.dark-mode .chip-count {
+  background: rgba(255, 255, 255, 0.1);
+}

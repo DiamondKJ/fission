@@ -44,8 +44,10 @@ function generateScatteredLayout(count, containerWidth, containerHeight) {
   return positions
 }
 
-function NameGallery({ exploding = false }) {
-  const { searchResults, maxResults, query, setMaxResults, setIsSearching, setSearchResults, setThreads } = useStore()
+function NameGallery({ exploding = false, names = [] }) {
+  const { maxResults, setMaxResults } = useStore()
+  // Use passed names prop (which may be filtered) or fall back to empty array
+  const displayNames = names
   const containerRef = useRef(null)
   const [containerSize, setContainerSize] = useState({ width: 1200, height: 800 })
   const [pan, setPan] = useState({ x: 0, y: 0 })
@@ -71,18 +73,18 @@ function NameGallery({ exploding = false }) {
   }, [])
 
   const layoutDimensions = useMemo(() => {
-    const baseSize = Math.sqrt(searchResults.length) * 280
+    const baseSize = Math.sqrt(displayNames.length) * 280
     const layoutWidth = Math.max(containerSize.width * 2, baseSize, 2000)
     const layoutHeight = Math.max(containerSize.height * 2, baseSize * 0.8, 1600)
     return { layoutWidth, layoutHeight }
-  }, [searchResults.length, containerSize])
+  }, [displayNames.length, containerSize])
 
   const positions = useMemo(() => {
-    return generateScatteredLayout(searchResults.length, layoutDimensions.layoutWidth, layoutDimensions.layoutHeight)
-  }, [searchResults.length, layoutDimensions])
+    return generateScatteredLayout(displayNames.length, layoutDimensions.layoutWidth, layoutDimensions.layoutHeight)
+  }, [displayNames.length, layoutDimensions])
 
   useEffect(() => {
-    if (searchResults.length > 0 && containerSize.width > 0) {
+    if (displayNames.length > 0 && containerSize.width > 0) {
       const { layoutWidth, layoutHeight } = layoutDimensions
       const layoutCenterX = layoutWidth / 2
       const layoutCenterY = layoutHeight / 3
@@ -91,7 +93,7 @@ function NameGallery({ exploding = false }) {
       setPan({ x: centerPanX, y: centerPanY })
       setZoom(1)
     }
-  }, [searchResults.length, containerSize, layoutDimensions])
+  }, [displayNames.length, containerSize, layoutDimensions])
 
   const handleMouseDown = (e) => {
     if (e.target.classList.contains('gallery-canvas') || e.target.classList.contains('name-gallery')) {
@@ -169,7 +171,7 @@ function NameGallery({ exploding = false }) {
       onWheel={handleWheel}
     >
       <div className={`gallery-canvas ${exploding ? 'exploding' : ''}`} style={canvasStyle}>
-        {searchResults.map((name, index) => (
+        {displayNames.map((name, index) => (
           <NameCard
             key={name.id}
             name={name}
@@ -191,7 +193,7 @@ function NameGallery({ exploding = false }) {
             setShowSlider(!showSlider)
           }}
         >
-          {searchResults.length} names
+          {displayNames.length} names
           <svg className="badge-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>

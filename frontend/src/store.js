@@ -21,6 +21,7 @@ const useStore = create((set, get) => ({
   viewMode: 'scattered', // 'scattered' | 'grid' | 'list'
   detailsPanel: null, // Name being viewed in details panel
   darkMode: false,
+  activeCategory: null, // Currently selected category filter
 
   // Actions - Search
   setQuery: (query) => set({ query }),
@@ -88,6 +89,7 @@ const useStore = create((set, get) => ({
   setViewMode: (viewMode) => set({ viewMode }),
   setDetailsPanel: (name) => set({ detailsPanel: name }),
   toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+  setActiveCategory: (category) => set({ activeCategory: category }),
 
   // Clear all results
   clearResults: () => set({
@@ -98,6 +100,7 @@ const useStore = create((set, get) => ({
     explorationHistory: [],
     hoveredName: null,
     detailsPanel: null,
+    activeCategory: null,
   }),
 }))
 

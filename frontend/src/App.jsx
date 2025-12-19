@@ -6,6 +6,8 @@ import NameGallery from './components/NameGallery'
 import GoDeeperPanel from './components/GoDeeperPanel'
 import Controls from './components/Controls'
 import DarkModeToggle from './components/DarkModeToggle'
+import CategoryFilter from './components/CategoryFilter'
+import LoadingScreen from './components/LoadingScreen'
 import './App.css'
 
 function App() {
@@ -189,7 +191,8 @@ function App() {
         {/* Results */}
         {showResults && (
           <>
-            <NameGallery exploding={animationPhase === 'exploding'} />
+            <CategoryFilter />
+            <NameGallery names={searchResults} exploding={animationPhase === 'exploding'} />
             <Controls />
           </>
         )}
